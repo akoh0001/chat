@@ -1,0 +1,11 @@
+<div class="grid-content form-login">
+    <h3>Login</h3>
+    <form action="/loginFormPost" method="GET">
+        <label for="email">Email</label>
+        <input name="email" placeholder="Email" type="email" value="{{email}}">
+        <label for="password">Password</label>
+        <input name="password" placeholder="Password" type="password">
+        <input class="button expand" type="submit" value="Submit">
+    </form>
+    {{message}}
+</div>

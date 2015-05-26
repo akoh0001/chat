@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" ng-app="application">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{title}} | Chat</title>
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="grid-frame">
+        <div id="sidebar" class="grid-block small-4 collapse vertical">
+            <div class="grid-content collapse shrink">
+                <a href="/"><h1 class="text-center">CHAT</h1></a>
+            </div>
+            <div class="grid-content collapse shrink">
+                <ul class="menu-bar">
+                    <li><a href="register">Register</a></li>
+                    {{!--{{#if !isAuthenticated}}--}}
+                    <li><a href="login">Login</a></li>
+                    {{!--{{else}}--}}
+                    <li><a href="logout">Logout</a></li>
+                    {{!--{{/if}}--}}
+                </ul>
+            </div>
+            <div class="grid-content">
+                <section class="block-list">
+                    <header>Rooms</header>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Chat
+                                <span class="block-list-label">7</span>
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            <div class="grid-content">
+                <section class="block-list">
+                    <header>Users</header>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Usernames{{usernames}}
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            <div class="grid-content collapse shrink avatar-section">
+                <img src="http://placehold.it/50x50">
+                Username{{username}}
+            </div>
+        </div>
+        <div class="grid-block small-8 collapse vertical">
+            {{{content}}}
+        </div>
+    </div>
+</body>
+</html>
