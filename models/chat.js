@@ -3,7 +3,7 @@ var io = require("socket.io")(server.listener);
 
 //socket io listen on connection event for incoming sockets
 io.on('connection', function(socket) {
-  console.log("User connected");
+  console.log("Chat: User connected");
 
   //listen on chat message event
   socket.on('chat message', function(msg) {

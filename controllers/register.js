@@ -1,5 +1,5 @@
-var query          = require("../models/query");
 var authentication = require("../models/authentication");
+var query          = require("../models/query");
 
 var register = function(request, reply) {
   reply.view("register", {
@@ -31,9 +31,9 @@ var registerFormPost = function(request, reply) {
         //insert user into database, then redirect to login
         query.insertUser(userRegistering, function() {
           console.log(userRegistering);
-          var response              = reply("worked?");
+          var response              = reply("Registered");
+          response.message          = "You're registered!!!";
           response.statusCode       = 302;
-          response.registered       = "hello";
           response.headers.Location = "/login";
         });
       });
@@ -44,7 +44,7 @@ var registerFormPost = function(request, reply) {
       return reply.view("register", {
         username: user.username,
         email   : user.email,
-        message : "The user exists. Please try again."
+        message : "User already exists, please try again"
       });
     }
   });

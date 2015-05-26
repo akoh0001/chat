@@ -1,4 +1,4 @@
-//var query = require("../models/query");
+var authentication = require("../models/authentication");
 
 var login = function(request, reply) {
   reply.view("login", {
@@ -7,23 +7,53 @@ var login = function(request, reply) {
 };
 
 var loginFormPost = function(request, reply) {
-  //var email = request.payload.email
-  //userQuery.selectUser(email, function(err, user) {
-  //  if (err) { console.log(err); }
-  //  else { console.log(user); }
-  //});
+  var userLogin = {
+    email   : request.payload.email,
+    password: request.payload.password
+  };
 
-  var response              = reply("Logged Out");
-  response.statusCode       = 302;
-  response.headers.Location = "/";
+  if (request.auth.isAuthenticated) {
+    return reply.redirect('/');
+  }
+
+  //if email or password is missing
+  if (!userLogin.email || !userLogin.password) {
+    return reply.view("login", {
+      email  : userLogin.email,
+      message: "Missing email or password"
+    });
+  }
+  else {
+    //if email and password validate credentials
+    authentication.validatePasswords(userLogin.email, userLogin.password, function(err, isValid, user) {
+      if (err) { console.log(err); }
+
+      //if user is not valid return to login
+      if (isValid === false) {
+        return reply.view("login", {
+          email  : userLogin.email,
+          message: "Invalid username or password"
+        });
+      }
+      //if user is valid, set session, and send to chat
+      else if (isValid === true) {
+        console.log(user[0]);
+        console.log(request.auth.credentials);
+        request.auth.session.set(user[0]);
+        return reply.redirect('/' + user[0].username);
+        //return reply.view("/", {
+        //  username  : user[0].username,
+        //});
+      }
+    });
+  }
 };
 
 var logout = function(request, reply) {
-  var response              = reply("Logged Out");
-  response.statusCode       = 401;
-  response.statusCode       = 302;
-  response.message          = "Logged Out";
-  response.headers.Location = "/login";
+  request.auth.session.clear();
+  return reply.view("login", {
+    message: "You logged out"
+  });
 };
 
 module.exports = {

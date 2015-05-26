@@ -9,7 +9,7 @@ var selectUser = function(email, callback) {
 
     //use the connection to query db
     connection.query(selectUserQuery, email, function(err, user) {
-      console.log("User Selected");
+      console.log("User Selected: " + user);
       //connection returned to pool
       connection.release(); //connection.destroy() doesnt go back to pool
       console.log("RELEASED connection");

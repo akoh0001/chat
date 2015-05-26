@@ -29,17 +29,16 @@ var validatePasswords = function(email, password, callback) {
       console.log("authentication: " + false);
       return callback(null, false);
     }
-    //if user in database, callback true and user
+    //if user in database and passwords match,
+    //callback true and user, otherwise false
     else {
       var encryptedPassword = user[0].password;
-      console.log(encryptedPassword);
 
       //compare plain text password with encrypted password in database
       bcrypt.compare(password, encryptedPassword, function(err, isValid) {
         if (err) { console.log(err); }
 
-        console.log("authentication: " + isValid);
-        console.log(user);
+        console.log("authentications: " + isValid);
         callback(null, isValid, user);
       });
     }

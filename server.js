@@ -1,6 +1,6 @@
-var hapi  = require("hapi");
-var basic = require("hapi-auth-basic");
-var path  = require("path");
+var hapi = require("hapi");
+var cookie = require("hapi-auth-cookie");
+var path   = require("path");
 
 //create new hapi server object
 var server = module.exports = new hapi.Server();
@@ -44,12 +44,14 @@ for (var path in paths) {
   });
 }
 
-//register hapi auth basic
-var authentication = require("./models/authentication");
-
-server.register(basic, function(err) {
-  if (err) { console.log(err); }
-  server.auth.strategy("simple", "basic", { validateFunc: authentication.validatePasswords });
+server.register(cookie, function(err) {
+  server.auth.strategy('session', 'cookie', {
+    password  : 'secret',
+    cookie    : 'cookie.sid',
+    redirectTo: false, //handle redirections
+    isSecure  : false, //required for non-https applications
+    ttl: 24* 60 * 60 * 1000 //set session to 1 day
+  });
 });
 
 //require controllers
@@ -59,11 +61,16 @@ var register = require("./controllers/register");
 
 //add routes
 server.route([
-  { method: "GET", path: "/", handler: chat.chat },
+  { method: "GET", path: "/{username*}", handler: chat.chat },
   { method: "POST", path: "/", handler: chat.chatPost },
   { method: "GET", path: "/login", handler: login.login },
-  { method: "GET", path: "/loginFormPost", config: { auth: "simple", handler: login.loginFormPost } },
-  { method: "GET", path: "/logout", handler: login.logout },
+  { method: ["GET", "POST"], path: "/loginFormPost", config: {
+      auth      : { mode: 'try', strategy: 'session' },
+      plugins   : { 'hapi-auth-cookie': { redirectTo: false } },
+      handler: login.loginFormPost } },
+  { method: "GET", path: "/logout", config: {
+      auth   : 'session',
+      handler: login.logout } },
   { method: "GET", path: "/register", handler: register.register },
   { method: "POST", path: "/registerFormPost", handler: register.registerFormPost }
 ]);
