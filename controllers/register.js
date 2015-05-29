@@ -2,6 +2,7 @@ var authentication = require("../models/authentication");
 var query          = require("../models/query");
 
 var register = function(request, reply) {
+  console.log(request);
   reply.view("register", {
     title: "Register"
   });
@@ -16,7 +17,7 @@ var registerFormPost = function(request, reply) {
   };
 
   //select user from database that match email entered in login form
-  query.selectUser(userRegistering.email, function(err, user) {
+  query.selectUser(userRegistering.username, function(err, user) {
     if (err) { console.log(err); }
 
     //if no user in database, insert credentials into database
@@ -34,7 +35,7 @@ var registerFormPost = function(request, reply) {
           var response              = reply("Registered");
           response.message          = "You're registered!!!";
           response.statusCode       = 302;
-          response.headers.Location = "/login";
+          response.headers.Location = "login";
         });
       });
     }
@@ -44,7 +45,7 @@ var registerFormPost = function(request, reply) {
       return reply.view("register", {
         username: user.username,
         email   : user.email,
-        message : "User already exists, please try again"
+        message : "User already exists, please try again."
       });
     }
   });

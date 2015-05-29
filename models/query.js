@@ -1,14 +1,14 @@
 var mysql = require("../config/config");
 
 //select user in database
-var selectUser = function(email, callback) {
-  var selectUserQuery = "SELECT * FROM user WHERE email = ?";
+var selectUser = function(username, callback) {
+  var selectUserQuery = "SELECT * FROM user WHERE username = ?";
 
   mysql.pool.getConnection(function(err, connection) {
     if (err) { console.log(err); }
 
     //use the connection to query db
-    connection.query(selectUserQuery, email, function(err, user) {
+    connection.query(selectUserQuery, username, function(err, user) {
       console.log("User Selected: " + user);
       //connection returned to pool
       connection.release(); //connection.destroy() doesnt go back to pool

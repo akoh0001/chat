@@ -7,7 +7,7 @@ gulp.task("nodemon", function() {
   nodemon({
     script: "server.js"
   }).on("restart", function () {
-    setTimeout(livereload.reload, 500);
+    setTimeout(livereload.reload, 1000);
   });
 });
 gulp.task("sass", function() {

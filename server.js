@@ -1,4 +1,4 @@
-var hapi = require("hapi");
+var hapi   = require("hapi");
 var cookie = require("hapi-auth-cookie");
 var path   = require("path");
 
@@ -44,33 +44,37 @@ for (var path in paths) {
   });
 }
 
+//register hapi cookie auth
 server.register(cookie, function(err) {
-  server.auth.strategy('session', 'cookie', {
-    password  : 'secret',
-    cookie    : 'cookie.sid',
+  if (err) { console.log(err); }
+
+  server.auth.strategy("session", "cookie", "try", {
+    password  : "secret",
+    cookie    : "sid", //cookie name
     redirectTo: false, //handle redirections
     isSecure  : false, //required for non-https applications
-    ttl: 24* 60 * 60 * 1000 //set session to 1 day
+    ttl       : 24 * 60 * 60 * 1000, //set session to 1 day
   });
 });
 
 //require controllers
 var chat     = require("./controllers/chat");
+var index    = require("./controllers/index");
 var login    = require("./controllers/login");
 var register = require("./controllers/register");
 
 //add routes
 server.route([
-  { method: "GET", path: "/{username*}", handler: chat.chat },
-  { method: "POST", path: "/", handler: chat.chatPost },
+  { method: "GET", path: "/chat",
+    config: {
+      auth   : { mode: "required", strategy: "session" },
+      handler: chat.chat
+    }
+  },
+  { method: "GET", path: "/", handler: index.index },
   { method: "GET", path: "/login", handler: login.login },
-  { method: ["GET", "POST"], path: "/loginFormPost", config: {
-      auth      : { mode: 'try', strategy: 'session' },
-      plugins   : { 'hapi-auth-cookie': { redirectTo: false } },
-      handler: login.loginFormPost } },
-  { method: "GET", path: "/logout", config: {
-      auth   : 'session',
-      handler: login.logout } },
+  { method: "POST", path: "/login", handler: login.loginFormPost },
+  { method: "GET", path: "/logout", handler: login.logout },
   { method: "GET", path: "/register", handler: register.register },
-  { method: "POST", path: "/registerFormPost", handler: register.registerFormPost }
+  { method: "POST", path: "/register", handler: register.registerFormPost }
 ]);

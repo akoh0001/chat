@@ -18,10 +18,10 @@ var encryptPassword = function(plainTextPassword, callback) {
 };
 
 //validate existing users password with login form password
-var validatePasswords = function(email, password, callback) {
+var validatePasswords = function(username, password, callback) {
 
   //select user from database that match email entered in login form
-  query.selectUser(email, function(err, user) {
+  query.selectUser(username, function(err, user) {
     if (err) { console.log(err); }
 
     //if no user in database, callback false

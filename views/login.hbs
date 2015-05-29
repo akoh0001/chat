@@ -1,9 +1,9 @@
 <div class="grid-content form-login">
     <h3>Login</h3>
-    <form action="/loginFormPost" method="POST">
-        <label for="email">Email</label>
-        <input name="email" placeholder="Email" type="email" value="{{email}}">
-        <label for="password">Password</label>
+    <form action="/login" method="POST">
+        <label for="username">Username *required</label>
+        <input name="username" placeholder="Username" type="text" value="{{username}}" required>
+        <label for="password">Password *registered user</label>
         <input name="password" placeholder="Password" type="password">
         <input class="button expand" type="submit" value="Submit">
     </form>
