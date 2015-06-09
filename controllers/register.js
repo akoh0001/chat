@@ -42,10 +42,11 @@ var registerFormPost = function(request, reply) {
         //insert user into database, then redirect to login
         query.insertUser(userRegistering, function() {
           console.log(userRegistering);
-          var response              = reply("Registered");
-          response.message          = "You're registered!!!";
-          response.statusCode       = 302;
-          response.headers.Location = "login";
+
+          reply.view("login", {
+            message: "You're registered!!!",
+            username: userRegistering.username
+          });
         });
       });
     }
