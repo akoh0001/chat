@@ -6,6 +6,7 @@ var register = function(request, reply) {
   var username;
   var isAuthenticated;
 
+  //if authenticated set variables
   if (request.auth.isAuthenticated === true) {
     isAuthenticated = true;
     username = request.auth.credentials.username;

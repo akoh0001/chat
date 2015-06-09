@@ -1,10 +1,7 @@
 var authentication = require("../models/authentication");
 
 var login = function(request, reply) {
-  var isAuthenticated;
-
   reply.view("login", {
-    isAuthenticated: isAuthenticated,
     title          : "Login",
     message        : "Enter username to chat."
   });
@@ -26,9 +23,8 @@ var loginFormPost = function(request, reply) {
       if (err) { console.log(err); }
 
       //if no user in db and login form password is empty, login as guest
+      //if user leaves chat they have to log back in, no session set
       if (!user && !userLogin.password) {
-        request.auth.session.set(userLogin);
-
         return reply.view("chat", {
           username: userLogin.username,
           message : "Logged in as Guest."
