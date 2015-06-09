@@ -5,11 +5,8 @@ var register = function(request, reply) {
   //var username = " " || request.auth.credentials.username;
   var username;
 
-  if (request.auth.credentials.username){
+  if (request.auth.isAuthenticated === true){
     username = request.auth.credentials.username;
-  }
-  else {
-    username = "";
   }
 
   reply.view("register", {
