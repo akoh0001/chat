@@ -5,9 +5,10 @@ var chat = function(request, reply) {
   console.log(request.auth);
 
   reply.view("chat", {
-    title   : "Chat",
-    username: request.auth.credentials.username,
-    message : request.auth.credentials.username + " logged in"
+    isAuthenticated: true,
+    title          : "Chat",
+    username       : request.auth.credentials.username,
+    message        : request.auth.credentials.username + " logged in"
   });
 };
 

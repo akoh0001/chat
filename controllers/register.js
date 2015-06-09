@@ -4,14 +4,17 @@ var query          = require("../models/query");
 var register = function(request, reply) {
   //var username = " " || request.auth.credentials.username;
   var username;
+  var isAuthenticated;
 
-  if (request.auth.isAuthenticated === true){
+  if (request.auth.isAuthenticated === true) {
+    isAuthenticated = true;
     username = request.auth.credentials.username;
   }
 
   reply.view("register", {
-    title: "Register",
-    username: username
+    isAuthenticated: isAuthenticated,
+    title          : "Register",
+    username       : username
   });
 };
 

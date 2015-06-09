@@ -16,7 +16,7 @@
             <div class="grid-content collapse shrink">
                 <ul class="menu-bar">
                     <li><a href="/register">Register</a></li>
-                    {{#if username}}
+                    {{#if isAuthenticated}}
                         <li><a href="/logout">Logout</a></li>
                     {{else}}
                         <li><a href="/login">Login</a></li>
@@ -36,7 +36,9 @@
                 </section>
             </div>
             <div class="grid-content collapse shrink avatar-section">
-                <img src="http://placehold.it/50x50">
+                {{#if isAuthenticated}}
+                    <img src="http://placehold.it/50x50">
+                {{/if}}
                 {{username}}
             </div>
         </div>

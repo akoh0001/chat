@@ -1,9 +1,12 @@
 var authentication = require("../models/authentication");
 
 var login = function(request, reply) {
+  var isAuthenticated;
+
   reply.view("login", {
-    title  : "Login",
-    message: "Enter username to chat."
+    isAuthenticated: isAuthenticated,
+    title          : "Login",
+    message        : "Enter username to chat."
   });
 };
 
@@ -35,7 +38,7 @@ var loginFormPost = function(request, reply) {
       //if user in database and password doesn't match, return to login
       if (isValid === false) {
         return reply.view("login", {
-          message : "Invalid username or password."
+          message: "Invalid username or password."
         });
       }
       //if user in database and password matches, set session, and redirect to chat
