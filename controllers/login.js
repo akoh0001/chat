@@ -2,7 +2,7 @@ var authentication = require("../models/authentication");
 
 var login = function(request, reply) {
   reply.view("login", {
-    title: "Login",
+    title  : "Login",
     message: "Enter username to chat."
   });
 };
@@ -25,24 +25,24 @@ var loginFormPost = function(request, reply) {
       //if no user in db and login form password is empty, login as guest
       if (!user && !userLogin.password) {
         request.auth.session.set(userLogin);
-        return reply.redirect("chat");
+
+        return reply.view("chat", {
+          username: userLogin.username,
+          message : "Logged in as Guest."
+        });
       }
 
-      //if user is not valid return to login
+      //if user in database and password doesn't match, return to login
       if (isValid === false) {
         return reply.view("login", {
-          username: userLogin.username,
           message : "Invalid username or password."
         });
       }
-      //if user is valid, set session, and send to chat
+      //if user in database and password matches, set session, and redirect to chat
       else if (isValid === true) {
-        //delete request.auth.artifacts.password;
-        delete request.payload.password;
         request.auth.session.clear();
         request.auth.session.set(user[0]);
 
-        console.log(reply);
         return reply.redirect("chat");
       }
     });

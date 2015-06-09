@@ -13,12 +13,16 @@ io.on('connection', function(socket) {
 });
 
 
+/*var Hapi = require("hapi");
+var SocketIO = require("socket.io");
 
 var server = new Hapi.Server();
 server.connection({ port: 80 });
 
 var io = SocketIO.listen(server.listener);
+io.sockets.on("connection", function(socket) {
 
+    socket.emit({ msg: "welcome" });
 });*/
 
 
