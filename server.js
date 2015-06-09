@@ -20,7 +20,6 @@ server.views({
     hbs: require("handlebars")
   },
   path        : path.join(__dirname, "views"),
-  partialsPath: path.join(__dirname, "views/partials"),
   layoutPath  : path.join(__dirname, "views/layouts"),
   layout      : "default",
   isCached    : false
@@ -68,7 +67,8 @@ server.route([
   { method: "GET", path: "/chat",
     config: {
       auth   : { mode: "required", strategy: "session" },
-      handler: chat.chat
+      handler: chat.chat,
+      plugins: { "hapi-auth-cookie": { redirectTo: "login" } }
     }
   },
   { method: "GET", path: "/", handler: index.index },

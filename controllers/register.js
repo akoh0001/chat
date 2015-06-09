@@ -2,7 +2,6 @@ var authentication = require("../models/authentication");
 var query          = require("../models/query");
 
 var register = function(request, reply) {
-  console.log(request);
   reply.view("register", {
     title: "Register"
   });

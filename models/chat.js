@@ -12,6 +12,16 @@ io.on('connection', function(socket) {
   });
 });
 
+
+
+var server = new Hapi.Server();
+server.connection({ port: 80 });
+
+var io = SocketIO.listen(server.listener);
+
+});*/
+
+
 module.exports = {
   io: io
 };

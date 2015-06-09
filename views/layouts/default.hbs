@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="application">
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,26 +15,13 @@
             </div>
             <div class="grid-content collapse shrink">
                 <ul class="menu-bar">
-                    <li><a href="register">Register</a></li>
+                    <li><a href="/register">Register</a></li>
                     {{#if username}}
-                        <li><a href="logout">Logout</a></li>
+                        <li><a href="/logout">Logout</a></li>
                     {{else}}
-                        <li><a href="login">Login</a></li>
+                        <li><a href="/login">Login</a></li>
                     {{/if}}
                 </ul>
-            </div>
-            <div class="grid-content">
-                <section class="block-list">
-                    <header>Rooms</header>
-                    <ul>
-                        <li>
-                            <a href="#">
-                                Chat
-                                <span class="block-list-label">7</span>
-                            </a>
-                        </li>
-                    </ul>
-                </section>
             </div>
             <div class="grid-content">
                 <section class="block-list">
