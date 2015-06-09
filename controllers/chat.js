@@ -12,5 +12,5 @@ var chat = function(request, reply) {
 };
 
 module.exports = {
-  chat: chat,
+  chat: chat
 };
