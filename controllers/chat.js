@@ -2,7 +2,7 @@ var chat = require("../models/chat");
 
 var chat = function(request, reply) {
   //check isAuthenticated status from loginFormPost
-  console.log(reply);
+  console.log(request.auth);
 
   reply.view("chat", {
     title   : "Chat",

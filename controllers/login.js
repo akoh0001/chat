@@ -40,6 +40,9 @@ var loginFormPost = function(request, reply) {
       }
       //if user in database and password matches, set session, and redirect to chat
       else if (isValid === true) {
+        //delete user password before setting session
+        delete user[0].password;
+
         request.auth.session.clear();
         request.auth.session.set(user[0]);
 

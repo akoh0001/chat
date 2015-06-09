@@ -2,8 +2,19 @@ var authentication = require("../models/authentication");
 var query          = require("../models/query");
 
 var register = function(request, reply) {
+  //var username = " " || request.auth.credentials.username;
+  var username;
+
+  if (request.auth.credentials.username){
+    username = request.auth.credentials.username;
+  }
+  else {
+    username = "";
+  }
+
   reply.view("register", {
-    title: "Register"
+    title: "Register",
+    username: username
   });
 };
 
