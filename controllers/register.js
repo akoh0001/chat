@@ -2,14 +2,13 @@ var authentication = require("../models/authentication");
 var query          = require("../models/query");
 
 var register = function(request, reply) {
-  //var username = " " || request.auth.credentials.username;
   var username;
   var isAuthenticated;
 
   //if authenticated set variables
   if (request.auth.isAuthenticated === true) {
     isAuthenticated = true;
-    username = request.auth.credentials.username;
+    username        = request.auth.credentials.username;
   }
 
   reply.view("register", {
@@ -45,7 +44,7 @@ var registerFormPost = function(request, reply) {
           console.log(userRegistering);
 
           reply.view("login", {
-            message: "You're registered!!!",
+            message : "You're registered!!!",
             username: userRegistering.username
           });
         });

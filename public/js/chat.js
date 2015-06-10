@@ -1,11 +1,11 @@
 var socket = io();
 
 $("form").submit(function() {
-  socket.emit("chat message", $(".chat-message").val());
-  $(".chat-message").val("");
+  socket.emit("message", $(".user-message").val());
+  $(".user-message").val("");
 
   return false;
 });
-socket.on("chat message", function(msg){
-  $(".chat-messages").append($("<p>").text(msg));
+socket.on("message", function(msg) {
+  $(".group-messages").append($("<p>").text(msg));
 });

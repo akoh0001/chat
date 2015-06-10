@@ -1,5 +1,4 @@
 var index = function(request, reply) {
-  //var username = " " || request.auth.credentials.username;
   var username;
   var message;
   var isAuthenticated;
@@ -23,5 +22,5 @@ var index = function(request, reply) {
 };
 
 module.exports = {
-  index: index,
+  index: index
 };

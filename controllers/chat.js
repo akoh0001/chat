@@ -1,4 +1,4 @@
-var chat = require("../models/chat");
+var io = require("../models/chat");
 
 var chat = function(request, reply) {
   //check isAuthenticated status from loginFormPost
@@ -8,7 +8,7 @@ var chat = function(request, reply) {
     isAuthenticated: true,
     title          : "Chat",
     username       : request.auth.credentials.username,
-    message        : request.auth.credentials.username + " logged in"
+    message        : "Logged in as " + request.auth.credentials.username
   });
 };
 

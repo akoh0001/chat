@@ -1,12 +1,12 @@
-var gulp = require("gulp");
-var nodemon = require("gulp-nodemon");
-var sass = require("gulp-sass");
+var gulp       = require("gulp");
+var nodemon    = require("gulp-nodemon");
+var sass       = require("gulp-sass");
 var livereload = require("gulp-livereload");
 
 gulp.task("nodemon", function() {
   nodemon({
     script: "server.js"
-  }).on("restart", function () {
+  }).on("restart", function() {
     setTimeout(livereload.reload, 1000);
   });
 });

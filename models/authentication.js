@@ -1,5 +1,19 @@
 var bcrypt = require("bcrypt");
 var query  = require("../models/query");
+var server = require("../server");
+
+var cookieOptions = function(err) {
+  if (err) { console.log(err); }
+
+  //hapi auth cookie options
+  server.auth.strategy("session", "cookie", "try", {
+    password  : "secret",
+    cookie    : "chat.sid", //cookie name
+    redirectTo: false, //handle redirections
+    isSecure  : false, //required for non-https applications
+    ttl       : 24 * 60 * 60 * 1000, //set session to 1 day
+  });
+};
 
 //encrypt plain text password, callback encrypted password
 var encryptPassword = function(plainTextPassword, callback) {
@@ -46,6 +60,7 @@ var validatePasswords = function(username, password, callback) {
 };
 
 module.exports = {
+  cookieOptions    : cookieOptions,
   encryptPassword  : encryptPassword,
   validatePasswords: validatePasswords
 };

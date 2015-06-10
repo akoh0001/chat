@@ -9,6 +9,7 @@
   "author": "Arnold Koh",
   "license": "ISC",
   "dependencies": {
+    "backbone": "^1.2.1",
     "bcrypt": "^0.8.3",
     "foundation-apps": "^1.1.0",
     "handlebars": "^3.0.3",

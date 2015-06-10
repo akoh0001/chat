@@ -1,9 +1,20 @@
 var authentication = require("../models/authentication");
 
 var login = function(request, reply) {
+  var username;
+  var isAuthenticated;
+
+  //if authenticated set variables
+  if (request.auth.isAuthenticated === true) {
+    isAuthenticated = true;
+    username        = request.auth.credentials.username;
+  }
+
   reply.view("login", {
+    isAuthenticated: isAuthenticated,
     title          : "Login",
-    message        : "Enter username to chat."
+    message        : "Enter username to chat.",
+    username       : username
   });
 };
 
@@ -27,7 +38,7 @@ var loginFormPost = function(request, reply) {
       if (!user && !userLogin.password) {
         return reply.view("chat", {
           username: userLogin.username,
-          message : "Logged in as Guest."
+          message : "Logged in as Guest"
         });
       }
 
