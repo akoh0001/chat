@@ -1,6 +1,7 @@
 # chat
 
 Getting started
+
 1. Clone repo at, https://github.com/akoh0001/chat.git.
 
 2. Set MySql credentials in config/config.js.
