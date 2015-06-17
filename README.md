@@ -6,8 +6,8 @@ Getting started
 
 2. Set MySql credentials in config/config.js.
 
-3. Import chat.sql file to create MySql database and user table.
+3. Import chat.sql file into MySql server to create chat database, and user table.
 
-4. Run application
+4. Run application with, gulp.
 
-5. Go to localhost:8080
+5. Go to localhost:8080.
