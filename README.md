@@ -8,6 +8,8 @@ Getting started
 
 3. Import chat.sql file into MySql server to create chat database, and user table.
 
-4. Run application with, gulp.
+4. npm install
 
-5. Go to localhost:8080.
+5. Run application with, gulp.
+
+6. Go to localhost:8080.
