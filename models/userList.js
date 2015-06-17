@@ -1,14 +1,20 @@
 var Backbone = require("backbone");
-var User     = require("./user");
+var User = require("./user");
 
-var userList = Backbone.Collection.extend({
-  model: User,
-  load : function(callback) {
-
-    callback();
-  }
-});
+var UserList = Backbone.Collection.extend({
+    model: User,
+    initialize: function() {
+      this.on("message", function() {
+        this.each(function() {
+          //send to user
+        });
+      });
+      this.on("closed", function() {
+        this.remove();
+      });
+    }
+  });
 
 module.exports = {
-  userList: userList
+  UserList: UserList
 };

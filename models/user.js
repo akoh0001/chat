@@ -1,29 +1,21 @@
 var Backbone = require("backbone");
 
 var UserModel = Backbone.Model.extend({
-  default: {
-    id      : "",
-    username: "",
-    email   : ""
-  }
-});
+  initialize: function() {
+    if (this.get("connection")) {
+      this.setSocket(this.get("connection"));
+    }
+  },
+  setSocket : function(connection) {
+    this.set("connection", connection);
+    var self = this;
 
-var user = new UserModel({
-  username: "",
-  id      : "",
-  email   : ""
-});
-
-//need to get credentials
-var userCredentials = {
-  id      : "",
-  username: "",
-  emai    : ""
-};
-
-user.save(userCredentials, {
-  success: function(user) {
-    console.log(user.toJSON());
+    connection.on("chat message", function(message) {
+      self.trigger("message", { text: message, user: self });
+    });
+    connection.on("close", function() {
+      self.trigger("closed");
+    });
   }
 });
 

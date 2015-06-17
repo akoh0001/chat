@@ -1,6 +1,9 @@
 var server = require("../server");
 var io     = require("socket.io")(server.listener);
 
+//var userlist = require("./userlist");
+//var User     = require("./user");
+
 //socket io listen on connection event for incoming sockets
 io.on("connection", function(socket) {
   console.log("Chat: User connected");
@@ -10,19 +13,13 @@ io.on("connection", function(socket) {
     //emit message to view for all users in room
     io.emit("message", msg);
   });
+
+  //var user = new User({
+  //  socket: socket
+  //});
+  //userlist.add(user);
+
 });
-
-/*var Hapi = require("hapi");
- var SocketIO = require("socket.io");
-
- var server = new Hapi.Server();
- server.connection({ port: 80 });
-
- var io = SocketIO.listen(server.listener);
- io.sockets.on("connection", function(socket) {
-
- socket.emit({ msg: "welcome" });
- });*/
 
 module.exports = {
   io: io
